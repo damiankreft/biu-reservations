@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/footer";
-import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,14 +28,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SessionProvider>
-          <div className="flex h-full min-h-screen w-full flex-col justify-between">
-            <main className="mx-auto w-full max-w-3xl flex-auto px-4 py-4 sm:px-6 md:py-6">
-              {children}
-            </main>
-            <Footer />
-          </div>
-        </SessionProvider>
+        <div className="flex h-full min-h-screen w-full flex-col justify-between">
+          <main className="mx-auto w-full max-w-3xl flex-auto px-4 py-4 sm:px-6 md:py-6">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
