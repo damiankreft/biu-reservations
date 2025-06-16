@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import BookingCalendar from './bookingCalendar';
 import { DateRange } from 'react-day-picker';
+import Link from 'next/link';
 
 export default function BookingMini({
     place,
@@ -34,9 +35,12 @@ export default function BookingMini({
                 <h2 className="text-lg font-semibold">{place.name}</h2>
                 <p className="text-sm text-gray-500">{`${selectedDate?.from?.toLocaleDateString()} - ${selectedDate?.to?.toLocaleDateString()}`}</p>
             </div>
-            <button disabled={!proceedEnabled} className="btn btn-primary mt-2" onClick={(e) => onProceed()}>
+            <Link href={`/book?id=${place.id}`} className="btn btn-ghost btn-sm ml-auto">
+                <button disabled={!proceedEnabled} className="btn btn-primary mt-2" onClick={(e) => onProceed()}>
                 ({t('Proceed', { defaultValue: 'Proceed' })})
             </button>
+            </Link>
+            
             <BookingCalendar
                 onDateSelected={(dr) => {
                     setSelectedDate(dr);

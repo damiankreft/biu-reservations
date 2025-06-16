@@ -1,7 +1,10 @@
-import React, { useReducer } from "react";
-import places, { Place } from "@/data/place";
+import React, { useReducer } from 'react';
+import places, { Place } from '@/data/place';
 
-export const PlacesContext = React.createContext<PlacesContextType>({places, dispatch: () => {}});
+export const PlacesContext = React.createContext<PlacesContextType>({
+    places,
+    dispatch: () => {},
+});
 
 export type PlacesContextType = {
     places: Place[];
@@ -14,7 +17,7 @@ export enum ActionType {
     Changed = 'changed',
     Deleted = 'deleted',
     SetPlaces = 'setPlaces',
-};
+}
 
 export type PlaceAction =
     | { type: ActionType.Added; payload: Place }
