@@ -1,18 +1,21 @@
-import { Place } from "@/data/place";
-import React from "react";
+import { Place } from '@/data/place';
+import React from 'react';
 import Image from 'next/image';
-import { useTranslation } from "react-i18next";
-import BookingCalendar from "./bookingCalendar";
-import { DateRange } from "react-day-picker";
+import { useTranslation } from 'react-i18next';
+import BookingCalendar from './bookingCalendar';
+import { DateRange } from 'react-day-picker';
 
 export default function BookingMini({
-    place, onProceed
+    place,
+    onProceed,
 }: {
     place: Place;
     onProceed: () => void;
 }) {
     const { t } = useTranslation();
-    const [selectedDate, setSelectedDate] = React.useState<DateRange | null>(null);
+    const [selectedDate, setSelectedDate] = React.useState<DateRange | null>(
+        null,
+    );
     const [proceedEnabled, setProceedEnabled] = React.useState(false);
     if (!place) {
         return null;
@@ -25,19 +28,13 @@ export default function BookingMini({
                     alt={`${place.name} thumbnail`}
                     className="size-20 rounded-box"
                     fill={true}
-                    style={{ display: 'inline' }}
                 />
             </div>
             <div className="flex-col">
-                <h2
-                    className="text-lg font-semibold"
-                    style={{ display: 'inline' }}
-                >
-                    {place.name}
-                </h2>
+                <h2 className="text-lg font-semibold">{place.name}</h2>
                 <p className="text-sm text-gray-500">{`${selectedDate?.from?.toLocaleDateString()} - ${selectedDate?.to?.toLocaleDateString()}`}</p>
             </div>
-            <button disabled={!proceedEnabled} className="btn btn-primary mt-2">
+            <button disabled={!proceedEnabled} className="btn btn-primary mt-2" onClick={(e) => onProceed()}>
                 ({t('Proceed', { defaultValue: 'Proceed' })})
             </button>
             <BookingCalendar

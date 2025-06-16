@@ -1,17 +1,26 @@
 'use client';
 import PlacesList from '@/components/places/placesList';
 import React from 'react';
-import placesVal, { Place } from '@/data/place';
+import { Place } from '@/data/place';
 import { useTranslation } from 'react-i18next';
-import { ActionType, PlacesContext } from '@/lib/placesContext';
+import { PlacesContext } from '@/lib/placesContext';
 import PlaceSearchBar from '@/components/places/placeSearchBar';
 import BookingMini from '@/components/bookings/bookingMini';
 
 export default function Home() {
     const { t } = useTranslation();
+    const bookingModal = React.useRef<HTMLDialogElement>(null);
     const { places, dispatch } = React.useContext(PlacesContext);
     const [dateRange, setDateRange] = React.useState<Date[]>([]);
-    const [selectedPlace, setSelectedPlace] = React.useState<Place | null>(null);
+    const [selectedPlace, setSelectedPlace] = React.useState<Place | null>(
+        null,
+    );
+
+    const onProceed = () => {
+        if (selectedPlace) {
+            bookingModal.current?.showModal();
+        }
+    };
 
     return (
         <div className="flex min-h-screen w-full">
@@ -151,14 +160,7 @@ export default function Home() {
             </div>
             <div className="flex-col w-1/4 p-4">
                 {selectedPlace ? (
-                    <BookingMini
-                        place={selectedPlace}
-                        onProceed={() => {
-                            console.log(
-                                `Proceeding with booking for place: ${selectedPlace.name}`,
-                            );
-                        }}
-                    />
+                    <BookingMini place={selectedPlace} onProceed={onProceed} />
                 ) : (
                     <div className="card bg-base-100 shadow-md p-4">
                         <h2 className="text-lg font-semibold">
@@ -175,6 +177,18 @@ export default function Home() {
                     </div>
                 )}
             </div>
+
+            <dialog id="booking_modal" ref={bookingModal} className="modal">
+                    <div className="modal-box">
+                        <h3 className="font-bold text-lg">Hello!</h3>
+                        <p className="py-4">
+                            Press ESC key or click outside to close
+                        </p>
+                    </div>
+                    <form method="dialog" className="modal-backdrop">
+                        <button>close</button>
+                    </form>
+                </dialog>
         </div>
     );
 }

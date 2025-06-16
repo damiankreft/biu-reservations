@@ -27,16 +27,6 @@ export default function BookingCalendar({
                               defaultValue: 'Select date range'}
                             )}
                 </button>
-                {selected && (
-                    <button
-                        className="btn btn-primary mt-3 ml-3"
-                        onClick={() => setSelected(undefined)}
-                    >
-                        {t('clearSelection', {
-                            defaultValue: 'Clear selection',
-                        })}
-                    </button>
-                )}
 
                 <DayPicker
                     className="react-day-picker w-full"
