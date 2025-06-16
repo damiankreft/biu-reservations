@@ -49,7 +49,7 @@ export default function PlaceListItem({
                 <Image src={playIcon} alt={t('alt', 'Play icon')} width={24} height={24} />
             </button>
             <button className="btn btn-square btn-ghost">
-                <Image src={heartIcon} alt={t('alt', 'Heart icon')} className='' width={24} height={24} />
+                <Image src={heartIcon} alt={t('alt', 'Heart icon')} width={24} height={24} />
             </button>
         </>
     );

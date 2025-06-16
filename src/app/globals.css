@@ -1,5 +1,276 @@
 @import "tailwindcss";
+@import "react-day-picker/style.module.css";
+
 @plugin "daisyui" {
   themes: light --default, dark --prefersdark, cupcake;
   logs: true;
+}
+
+.rdp-root {
+  --rdp-accent-color: black;
+}
+.rdp-day {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_selected {
+  --rdp-accent-color: var(--bg-primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_today {
+  --rdp-accent-color: var(--);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_disabled {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_outside {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_end {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_middle {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_today {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_end.rdp-day_today {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_middle.rdp-day_today {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_disabled {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_end.rdp-day_disabled {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_middle.rdp-day_disabled {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_outside {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_end.rdp-day_outside {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_middle.rdp-day_outside {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_range_end {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_today {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_disabled {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_outside {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_today {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_disabled {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_outside {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_start {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_end {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_middle {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_start.rdp-day_today {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_end.rdp-day_today {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_middle.rdp-day_today {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_start.rdp-day_disabled {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_end.rdp-day_disabled {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_middle.rdp-day_disabled {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_start.rdp-day_outside {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_end.rdp-day_outside {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_middle.rdp-day_outside {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_start.rdp-day_range_end {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_end.rdp-day_today {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_middle.rdp-day_today {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_start.rdp-day_today {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_end {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_middle {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_start.rdp-day_disabled {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_end.rdp-day_disabled {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_middle.rdp-day_disabled {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_start.rdp-day_outside {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_end.rdp-day_outside {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_middle.rdp-day_outside {
+  --rdp-accent-color: var(--neutral);
+  --rdp-background-color: var(--neutral);
+  color: var(--neutral-content);
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_start.rdp-day_range_end {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_end.rdp-day_today {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_middle.rdp-day_today {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
+}
+.rdp-day_range_start.rdp-day_range_end.rdp-day_range_middle.rdp-day_range_start.rdp-day_today {
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary);
+  color: white;
 }
