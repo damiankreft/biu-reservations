@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import PlacesProvider from '@/lib/placesContext';
 import AppNavigation from '@/components/appFiles/appNavigation';
 import AppTitle from '@/components/appFiles/appTitle';
+import Footer from '@/components/footer';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -42,6 +43,7 @@ export default function RootLayout({
                         {children}
                     </PlacesProvider>
                 </main>
+                <Footer />
             </body>
         </html>
     );

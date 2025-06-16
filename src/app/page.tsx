@@ -1,15 +1,17 @@
 'use client';
 import PlacesList from '@/components/places/placesList';
 import React from 'react';
-import placesVal from '@/data/place';
+import placesVal, { Place } from '@/data/place';
 import { useTranslation } from 'react-i18next';
 import { ActionType, PlacesContext } from '@/lib/placesContext';
 import PlaceSearchBar from '@/components/places/placeSearchBar';
-import BookingCalendar from '@/components/bookings/bookingCalendar';
+import BookingMini from '@/components/bookings/bookingMini';
 
 export default function Home() {
     const { t } = useTranslation();
     const { places, dispatch } = React.useContext(PlacesContext);
+    const [dateRange, setDateRange] = React.useState<Date[]>([]);
+    const [selectedPlace, setSelectedPlace] = React.useState<Place | null>(null);
 
     return (
         <div className="flex min-h-screen w-full">
@@ -138,13 +140,40 @@ export default function Home() {
                     <PlacesList
                         places={places}
                         onPlaceClick={(placeId) => {
+                            setSelectedPlace(
+                                places.find((place) => place.id === placeId) ||
+                                    null,
+                            );
                             console.log(`Place clicked: ${placeId}`);
                         }}
                     />
                 </div>
             </div>
             <div className="flex-col w-1/4 p-4">
-                <BookingCalendar />
+                {selectedPlace ? (
+                    <BookingMini
+                        place={selectedPlace}
+                        onProceed={() => {
+                            console.log(
+                                `Proceeding with booking for place: ${selectedPlace.name}`,
+                            );
+                        }}
+                    />
+                ) : (
+                    <div className="card bg-base-100 shadow-md p-4">
+                        <h2 className="text-lg font-semibold">
+                            {t('selectPlaceTitle', {
+                                defaultValue: 'Select a Place',
+                            })}
+                        </h2>
+                        <p className="text-sm text-gray-500">
+                            {t('selectPlaceDescription', {
+                                defaultValue:
+                                    'Please select a place to see booking options.',
+                            })}
+                        </p>
+                    </div>
+                )}
             </div>
         </div>
     );
