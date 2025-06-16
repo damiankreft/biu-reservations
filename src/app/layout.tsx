@@ -6,8 +6,8 @@ import React from 'react';
 import '@/i18n/i18n';
 import { useTranslation } from 'react-i18next';
 import PlacesProvider from '@/lib/placesContext';
-import AppNavigation from '@/components/appNavigation';
-import AppTitle from '@/components/appTitle';
+import AppNavigation from '@/components/appFiles/appNavigation';
+import AppTitle from '@/components/appFiles/appTitle';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',

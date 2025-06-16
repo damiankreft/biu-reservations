@@ -1,11 +1,11 @@
 'use client';
-import PlacesList from '@/components/placesList';
+import PlacesList from '@/components/places/placesList';
 import React from 'react';
 import placesVal from '@/data/place';
 import { useTranslation } from 'react-i18next';
 import { ActionType, PlacesContext } from '@/lib/placesContext';
-import PlaceSearchBar from '@/components/placeSearchBar';
-import BookingCalendar from '@/components/bookingCalendar';
+import PlaceSearchBar from '@/components/places/placeSearchBar';
+import BookingCalendar from '@/components/bookings/bookingCalendar';
 
 export default function Home() {
     const { t } = useTranslation();
