@@ -11,7 +11,7 @@ export type PlacesContextType = {
     dispatch: React.Dispatch<PlaceAction>;
 };
 
-export enum ActionType {
+export enum PlaceActionType {
     Unknown,
     Added = 'added',
     Changed = 'changed',
@@ -20,10 +20,10 @@ export enum ActionType {
 }
 
 export type PlaceAction =
-    | { type: ActionType.Added; payload: Place }
-    | { type: ActionType.Changed; payload: Place }
-    | { type: ActionType.Deleted; payload: Place }
-    | { type: ActionType.SetPlaces; payload: Place[] };
+    | { type: PlaceActionType.Added; payload: Place }
+    | { type: PlaceActionType.Changed; payload: Place }
+    | { type: PlaceActionType.Deleted; payload: Place }
+    | { type: PlaceActionType.SetPlaces; payload: Place[] };
 
 export default function PlacesProvider({
     children,
@@ -36,14 +36,14 @@ export default function PlacesProvider({
 
     function placesReducer(state: Place[], action: PlaceAction) {
         switch (action.type) {
-            case ActionType.Added: {
+            case PlaceActionType.Added: {
                 const place = action.payload;
                 return [...state, place];
             }
-            case ActionType.SetPlaces: {
+            case PlaceActionType.SetPlaces: {
                 return action.payload;
             }
-            case ActionType.Changed: {
+            case PlaceActionType.Changed: {
                 return state.map((t) => {
                     if (t.id === action.payload.id) {
                         return action.payload as Place;
@@ -52,7 +52,7 @@ export default function PlacesProvider({
                     }
                 });
             }
-            case ActionType.Deleted: {
+            case PlaceActionType.Deleted: {
                 return state.filter((t) => t.id !== action.payload.id);
             }
             default: {
