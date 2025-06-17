@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import SignIn from "../auth/signIn";
 
 export default function AppNavigation() {
     const { t } = useTranslation();
@@ -96,6 +97,9 @@ export default function AppNavigation() {
                                 </g>
                             </svg>
                         </label>
+                    </li>
+                    <li>
+                        <SignIn />
                     </li>
                 </ul>
             </div>

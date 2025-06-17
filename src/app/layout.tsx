@@ -9,6 +9,7 @@ import PlacesProvider from '@/lib/placesContext';
 import AppNavigation from '@/components/appFiles/appNavigation';
 import AppTitle from '@/components/appFiles/appTitle';
 import Footer from '@/components/footer';
+import { SessionProvider } from 'next-auth/react';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -21,15 +22,17 @@ const geistMono = Geist_Mono({
 });
 
 export default function RootLayout({
-    children,
+    children
 }: Readonly<{
     children: React.ReactNode;
+    
 }>) {
     const { t } = useTranslation();
 
     return (
         <html>
-            <body
+            <SessionProvider>
+                <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
                 <div className="w-full">
@@ -45,6 +48,7 @@ export default function RootLayout({
                 </main>
                 <Footer />
             </body>
+            </SessionProvider>
         </html>
     );
 }
