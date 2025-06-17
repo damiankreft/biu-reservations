@@ -28,7 +28,7 @@ export type User = {
     name: string;
     email: string;
     profilePicture?: string; // Optional profile picture URL
-    role: 'guest' | 'host'; // User role, e.g., guest or host
+    role: 'user' | 'host' | 'admin'; // User role, e.g., guest or host
     createdAt: Date; // Date when the user was created
     updatedAt: Date; // Date when the user was last updated
     isActive: boolean; // Indicates if the user account is active
