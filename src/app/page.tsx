@@ -15,7 +15,7 @@ export default function Home() {
     const [selectedPlace, setSelectedPlace] = React.useState<Place | null>(
         null,
     );
-
+    // dispatch({ type: PlaceActionType.Added, payload: selectedPlace as Place });
     const onProceed = () => {
         if (selectedPlace) {
             bookingModal.current?.showModal();
