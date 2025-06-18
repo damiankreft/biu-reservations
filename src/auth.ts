@@ -1,6 +1,6 @@
 import NextAuth, { type DefaultSession } from "next-auth"
 import GitHub from 'next-auth/providers/github';
-import { DataSource, DataSourceContext } from "./data/DataSource";
+import { DataSourceContext } from "./data/DataSource";
 
 declare module "next-auth" {
   /**
