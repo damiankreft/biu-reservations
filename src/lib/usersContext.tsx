@@ -1,5 +1,5 @@
+'use client';
 import React, { useReducer } from 'react';
-
 
 export enum UserActionType {
     Unknown,
@@ -17,7 +17,9 @@ export type UserAction =
 
 export const UsersContext = React.createContext<UsersContextType>({
     users: [],
-    dispatch: () => {},
+    dispatch: () => {
+        console.log('default entered');
+    },
 });
 
 export type UsersContextType = {

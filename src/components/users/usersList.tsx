@@ -1,11 +1,18 @@
 'use client';
 
-import React, { use, useEffect } from 'react';
+import React, { use, useTransition } from 'react';
 import { useTranslation } from 'react-i18next';
 import { User, UserActionType, UsersContext } from '@/lib/usersContext';
+import UserFilters from './userFilters';
+import { handleDeleteUser, handleUpdateUser } from '@/app/admin/users/page';
 
-export default function UsersList({ users }: { users: Promise<User[]> }) {
+export default function UsersList({
+    users,
+}: {
+    users: Promise<User[]>;
+}) {
     const { t } = useTranslation();
+    const [isPending, startTransition] = useTransition();
     const { users: cachedUsers, dispatch } = React.useContext(UsersContext);
     const allUsers = use(users);
 
@@ -19,25 +26,27 @@ export default function UsersList({ users }: { users: Promise<User[]> }) {
         isActive: '',
     });
 
-    useEffect(() => {
-        if (cachedUsers.length === 0) {
-            dispatch({ type: UserActionType.SetUsers, users: allUsers });
-        }
-    }, [cachedUsers]);
+    const newUsers: {
+        username: string;
+        email: string;
+        role: string;
+        isActive: boolean;
+    }[] = allUsers.map((user) => ({
+        username: user.name,
+        email: user.email,
+        role: user.role,
+        isActive: user.isActive,
+    }));
+
     return (
         <div className="flex w-full">
             <div className="flex-col w-1/4">
                 <aside className="border-r border-base-300 p-4">
-                    <h3 className="text-lg font-semibold">
-                        {t('usersTitle', {
-                            defaultValue: 'Users',
-                        })}
-                    </h3>
-                    <p className="text-sm text-base-content">
-                        {t('usersDescription', {
-                            defaultValue: 'Manage users in the system.',
-                        })}
-                    </p>
+                    <UserFilters
+                        filters={filters}
+                        setFilters={setFilters}
+                        allUsers={newUsers}
+                    />
                 </aside>
             </div>
             <div className="w-3/4 p-4">
@@ -47,43 +56,6 @@ export default function UsersList({ users }: { users: Promise<User[]> }) {
                     })}
                 </h2>
                 <div className="mb-4">
-                    <input
-                        type="text"
-                        placeholder={t('searchPlaceholder', {
-                            defaultValue: 'Search by username or email...',
-                        })}
-                        className="input input-bordered w-full mb-2"
-                        value={filters.search}
-                        onChange={(e) =>
-                            setFilters((f) => ({
-                                ...f,
-                                search: e.target.value,
-                            }))
-                        }
-                    />
-                    <select
-                        className="select select-bordered w-full mb-2"
-                        value={filters.isActive}
-                        onChange={(e) =>
-                            setFilters((f) => ({
-                                ...f,
-                                isActive: e.target.value,
-                            }))
-                        }
-                    >
-                        <option value="">
-                            {t('allUsers', { defaultValue: 'All Users' })}
-                        </option>
-                        <option value="active">
-                            {t('activeUsers', { defaultValue: 'Active Users' })}
-                        </option>
-                        <option value="inactive">
-                            {t('inactiveUsers', {
-                                defaultValue: 'Inactive Users',
-                            })}
-                        </option>
-                    </select>
-
                     <table className="table w-full">
                         <thead>
                             <tr>
@@ -93,32 +65,7 @@ export default function UsersList({ users }: { users: Promise<User[]> }) {
                                     })}
                                 </th>
                                 <th>{t('email', { defaultValue: 'Email' })}</th>
-                                <th>
-                                    {t('role', { defaultValue: 'Role' })}
-                                    <select
-                                        className="select ml-1"
-                                        value={filters.role}
-                                        onChange={(e) =>
-                                            setFilters((f) => ({
-                                                ...f,
-                                                role: e.target.value,
-                                            }))
-                                        }
-                                    >
-                                        <option value="">
-                                            {t('all', { defaultValue: 'All' })}
-                                        </option>
-                                        {[
-                                            ...new Set(
-                                                allUsers.map((u) => u.role),
-                                            ),
-                                        ].map((role) => (
-                                            <option key={role} value={role}>
-                                                {role}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </th>
+                                <th>{t('role', { defaultValue: 'Role' })}</th>
                                 <th>
                                     {t('createdAt', {
                                         defaultValue: 'Created At',
@@ -130,13 +77,19 @@ export default function UsersList({ users }: { users: Promise<User[]> }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {allUsers
+                            {cachedUsers
                                 .filter((u) => {
-                                    const matchesSearch = u.name
-                                        .toLowerCase()
-                                        .includes(filters.search.toLowerCase()) || u.email
-                                        .toLowerCase()
-                                        .includes(filters.search.toLowerCase());
+                                    const matchesSearch =
+                                        u.name
+                                            .toLowerCase()
+                                            .includes(
+                                                filters.search.toLowerCase(),
+                                            ) ||
+                                        u.email
+                                            .toLowerCase()
+                                            .includes(
+                                                filters.search.toLowerCase(),
+                                            );
                                     const matchesRole =
                                         !filters.role ||
                                         u.role === filters.role;
@@ -169,7 +122,10 @@ export default function UsersList({ users }: { users: Promise<User[]> }) {
                                                     defaultValue: 'Edit',
                                                 })}
                                             </button>
-                                            <button className="btn btn-secondary btn-sm ml-2">
+                                            <button
+                                                onClick={handleDelete(user)}
+                                                className="btn btn-secondary btn-sm ml-2"
+                                            >
                                                 {t('delete', {
                                                     defaultValue: 'Delete',
                                                 })}
@@ -197,4 +153,23 @@ export default function UsersList({ users }: { users: Promise<User[]> }) {
             </div>
         </div>
     );
+
+    function handleDelete(
+        user: User,
+    ): React.MouseEventHandler<HTMLButtonElement> | undefined {
+        return async (e) => {
+                e.preventDefault();
+                if (!user.id) {
+                    console.error('User ID is required for deletion');
+                    return;
+                }
+
+                await handleDeleteUser(user.id);
+
+                dispatch({
+                    type: UserActionType.Delete,
+                    id: user.id,
+                });
+        };
+    }
 }

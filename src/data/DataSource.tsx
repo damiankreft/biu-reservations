@@ -31,3 +31,23 @@ export async function db(): Promise<DataSource> {
     users: await users,
   };
 }
+
+export async function getUsers(): Promise<User[]> {
+  const data = await db();
+  return data.users;
+}
+
+export async function getPlaces(): Promise<Place[]> {
+  const data = await db();
+  return data.places;
+}
+
+export async function getBookings(): Promise<Booking[]> {
+  const data = await db();
+  return data.bookings;
+}
+
+export async function getReviews(): Promise<Review[]> {
+  const data = await db();
+  return data.reviews;
+}

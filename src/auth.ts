@@ -10,6 +10,7 @@ declare module "next-auth" {
     user: {
       /** The user's role. */
       role: string
+      active: boolean
       /**
        * By default, TypeScript merges new interface properties and overwrites existing ones.
        * In this case, the default session user properties will be overwritten,
@@ -44,6 +45,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }),
     ],
     callbacks: {
+        signIn({ user, account, profile }) {
+            // Check if the user is in the DataSourceContext
+            const cachedUser = DataSourceContext.users.find(u => u.name === user.name);
+            if (cachedUser !== undefined && !cachedUser.isActive) {
+              return false;
+            }
+            return true;
+        },
         jwt({ token, user }) {
             if (user) {
               token.id = user.id;
