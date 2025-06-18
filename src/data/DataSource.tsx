@@ -21,3 +21,13 @@ export const DataSourceContext = {
   reviews,
   users,
 };
+
+console.log('Loaded users:', users.length, users[0]);
+export async function db(): Promise<DataSource> {
+  return {
+    places: await places,
+    bookings: await bookings,
+    reviews: await reviews,
+    users: await users,
+  };
+}
