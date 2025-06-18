@@ -3,6 +3,13 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   output: "standalone",
+  logging: {
+    fetches: {
+      fullUrl: true,
+      hmrRefreshes: true,
+    },
+    incomingRequests: true
+  },
   compiler: {
     styledComponents: true,
     removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error", "warn"] } : false,
