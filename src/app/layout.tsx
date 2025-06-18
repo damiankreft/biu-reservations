@@ -22,10 +22,9 @@ const geistMono = Geist_Mono({
 });
 
 export default function RootLayout({
-    children
+    children,
 }: Readonly<{
     children: React.ReactNode;
-    
 }>) {
     const { t } = useTranslation();
 
@@ -33,21 +32,21 @@ export default function RootLayout({
         <html>
             <SessionProvider>
                 <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-            >
-                <div className="w-full">
-                    <header className="border-b border-base-300">
-                        <AppTitle />
-                        <AppNavigation />
-                    </header>
-                </div>
-                <main className="p-4">
-                    <PlacesProvider initialValue={places}>
-                        {children}
-                    </PlacesProvider>
-                </main>
-                <Footer />
-            </body>
+                    className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+                >
+                    <div className="w-full">
+                        <header className="border-b border-base-300">
+                            <AppTitle />
+                            <AppNavigation />
+                        </header>
+                    </div>
+                    <main className="p-4">
+                        <PlacesProvider initialValue={places}>
+                            {children}
+                        </PlacesProvider>
+                    </main>
+                    <Footer />
+                </body>
             </SessionProvider>
         </html>
     );
