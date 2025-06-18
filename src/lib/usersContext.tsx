@@ -3,11 +3,13 @@ import React, { useReducer } from 'react';
 
 export enum UserActionType {
     Unknown,
+    SetUsers = 'setUsers',
     Add = 'add',
     Change = 'change',
     Delete = 'delete',
 }
 export type UserAction =
+    | { type: UserActionType.SetUsers; users: User[] }
     | { type: UserActionType.Add; user: User }
     | { type: UserActionType.Change; user: User }
     | { type: UserActionType.Delete; id: string }
