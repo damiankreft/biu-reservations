@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import users from '@/data/user';
+
 
 export enum UserActionType {
     Unknown,
@@ -14,7 +14,7 @@ export type UserAction =
     | { type: UserActionType.Unknown };
 
 export const UsersContext = React.createContext<UsersContextType>({
-    users,
+    users: [],
     dispatch: () => {},
 });
 

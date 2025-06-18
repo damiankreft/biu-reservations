@@ -1,6 +1,5 @@
-import React from 'react';
-import { useReducer } from 'react';
-import reviews, { Review } from '@/data/review';
+import React, { useReducer } from 'react';
+import { Review } from '@/data/review';
 
 export enum ReviewActionType {
     Unknown,
@@ -16,7 +15,7 @@ export type ReviewAction =
     | { type: ReviewActionType.Unknown };
 
 export const ReviewsContext = React.createContext<ReviewsContextType>({
-    reviews,
+    reviews: [],
     dispatch: () => {},
 });
 

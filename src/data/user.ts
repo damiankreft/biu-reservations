@@ -4,7 +4,7 @@ const users: User[] = [
     // ...existing users
     {
         id: '12345',
-        name: 'Damian Kreft2',
+        name: 'Damian Kreft',
         email: 'mymail@example.com',
         profilePicture: 'https://randomuser.me/api/portraits/men/4.jpg',
         role: 'admin',

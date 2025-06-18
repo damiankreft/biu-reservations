@@ -1,8 +1,8 @@
 import React, { useReducer } from 'react';
-import places, { Place } from '@/data/place';
+import { Place } from '@/data/place';
 
 export const PlacesContext = React.createContext<PlacesContextType>({
-    places,
+    places: [],
     dispatch: () => {},
 });
 
