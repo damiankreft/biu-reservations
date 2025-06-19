@@ -6,14 +6,12 @@ import { User, UserActionType, UsersContext } from '@/lib/usersContext';
 import UserFilters from './userFilters';
 import { handleDeleteUser, handleUpdateUser } from '@/app/admin/users/page';
 
-export default function UsersList({
-    users,
-}: {
-    users: Promise<User[]>;
-}) {
+export default function UsersList({ users }: { users: Promise<User[]> }) {
     const { t } = useTranslation();
     const [isPending, startTransition] = useTransition();
+    const confirmationModal = React.useRef<HTMLDialogElement>(null);
     const { users: cachedUsers, dispatch } = React.useContext(UsersContext);
+    const [selectedUser, setSelectedUser] = React.useState<User | null>(null);
     const allUsers = use(users);
 
     const [filters, setFilters] = React.useState<{
@@ -151,6 +149,64 @@ export default function UsersList({
                     </table>
                 </div>
             </div>
+
+            <dialog ref={confirmationModal} className="modal">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">
+                        {t('confirmDelete', {
+                            defaultValue: 'Confirm Delete',
+                        })}
+                    </h3>
+                    <p className="py-4">
+                        {t('confirmDeleteMessage', {
+                            defaultValue:
+                                'Are you sure you want to delete this user?',
+                        })}
+                    </p>
+                    {selectedUser && (
+                        <p>
+                            {t('userToDelete', {
+                                defaultValue: 'User to delete: {{name}}',
+                                name: selectedUser.name,
+                            })}
+                        </p>
+                    )}
+                    <div className="modal-action">
+                        <form
+                            method="dialog"
+                            onSubmit={async (e) => {
+                                e.preventDefault();
+                                if (!selectedUser) return;
+
+                                startTransition(async () => {
+                                    await handleDeleteUser(selectedUser.id);
+
+                                    dispatch({
+                                        type: UserActionType.Delete,
+                                        id: selectedUser.id,
+                                    });
+
+                                    confirmationModal.current?.close();
+                                });
+                            }}
+                        >
+                            <button className="btn btn-primary">
+                                {t('confirm', { defaultValue: 'Confirm' })}
+                            </button>
+                            <button
+                                type="button"
+                                className="btn btn-secondary ml-2"
+                                onClick={() => {
+                                    confirmationModal.current?.close();
+                                    setSelectedUser(null);
+                                }}
+                            >
+                                {t('cancel', { defaultValue: 'Cancel' })}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
         </div>
     );
 
@@ -158,18 +214,14 @@ export default function UsersList({
         user: User,
     ): React.MouseEventHandler<HTMLButtonElement> | undefined {
         return async (e) => {
-                e.preventDefault();
-                if (!user.id) {
-                    console.error('User ID is required for deletion');
-                    return;
-                }
+            e.preventDefault();
+            setSelectedUser(user);
+            if (!confirmationModal.current) {
+                console.error('Confirmation modal is not available');
+                return;
+            }
 
-                await handleDeleteUser(user.id);
-
-                dispatch({
-                    type: UserActionType.Delete,
-                    id: user.id,
-                });
+            confirmationModal.current?.showModal();
         };
     }
 }
