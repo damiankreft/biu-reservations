@@ -1,12 +1,20 @@
 'use server';
+import { auth } from '@/auth';
 import UsersList from '@/components/users/usersList';
 import { getUsers } from '@/data/DataSource';
 import UsersProvider from '@/lib/usersContext';
+import { Console } from 'console';
+import { unauthorized } from 'next/navigation';
 import { NextRequest } from 'next/server';
 import React, { Suspense } from 'react';
 
 export default async function UsersPage() {
     const users = getUsers();
+    const session = await auth();
+    console.log('Session:', session);
+    if (!session || session.user.role !== 'admin') {
+        unauthorized();
+    }
 
     return (
         <Suspense fallback={<div>Loading...</div>}>
@@ -26,15 +34,15 @@ export async function handleDeleteUser(id: string) {
     if (!response.ok) {
         throw new Error(`Failed to delete user with id ${id}`);
     }
-    
+
     console.log('User deleted');
 }
 
 export async function DELETE(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> },
 ) {
-  const id = (await params).id;
+    const id = (await params).id;
 
     const response = await fetch(`http://localhost:3001/api/users/${id}`, {
         method: 'DELETE',
@@ -46,9 +54,8 @@ export async function DELETE(
     const deletedUser = await response.json();
     console.log('User deleted:', deletedUser);
 
-
-  // e.g. Delete user with ID `id` in DB
-  return new Response(null, { status: 204 });
+    // e.g. Delete user with ID `id` in DB
+    return new Response(null, { status: 204 });
 }
 
 export async function handleUpdateUser(user: any) {
