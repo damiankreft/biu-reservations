@@ -1,0 +1,11 @@
+{
+    "prettier.useTabs": true,
+    "prettier.useEditorConfig": true,
+    "prettier.trailingComma": "all",
+    "prettier.tabWidth": 4,
+    "prettier.singleQuote": true,
+    "prettier.singleAttributePerLine": true,
+    "prettier.quoteProps": "consistent",
+    "prettier.bracketSameLine": true,
+    "editor.formatOnSave": true
+}
