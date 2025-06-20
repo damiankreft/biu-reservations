@@ -2,26 +2,112 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    fallbackLng: 'pl',
-    fallbackNS: 'default',
-    debug: true,
-    resources: {
-      en: {
-        default: {
-          viewDetails: 'View details',
+i18n.use(LanguageDetector)
+    .use(initReactI18next)
+    .init({
+        fallbackLng: 'pl',
+        debug: true,
+        nonExplicitSupportedLngs: true,
+        supportedLngs: ['en', 'pl'],
+        interpolation: {
+            escapeValue: false, // React already does escaping
         },
-      },
-      pl: {
-        default: {
-          viewDetails: 'Pokaż szczegóły',
-        },
-      },
-    },
-  });
 
+        resources: {
+            en: {
+                translation: {
+                    viewDetails: 'View details',
+                    usersTitle: 'Users',
+                    usersDescription: 'Manage users in the system.',
+                    searchPlaceholder: 'Search by username or email...',
+                    all: 'All roles',
+                    activeUsers: 'Active Users',
+                    inactiveUsers: 'Inactive Users',
+                    userEditTitle: 'Edit User',
+                    userEditNameLabel: 'Name',
+                    errorDeletingUser: 'Error deleting user.',
+                    home: 'Home',
+                    about: 'About',
+                    contact: 'Contact',
+                    footer: {
+                        copyright: 'biuking.com. All rights reserved.',
+                    },
+                    placeSearchPlaceholder: 'Search for a place...',
+                    usersManagement: 'User Management',
+                    username: 'Username',
+                    email: 'Email',
+                    role: 'Role',
+                    createdAt: 'Created At',
+                    actions: 'Actions',
+                    edit: 'Edit',
+                    delete: 'Delete',
+                    active: 'Active',
+                    inactive: 'Inactive',
+                    confirmDelete: 'Confirm Delete',
+                    confirmDeleteMessage:
+                        'Are you sure you want to delete this user?',
+                    userToDelete: 'User to delete: {{name}}',
+                    confirm: 'Confirm',
+                    cancel: 'Cancel',
+                    userEditNamePlaceholder: 'Enter your name',
+                    userEditEmailLabel: 'Email',
+                    userEditEmailPlaceholder: 'Enter your email',
+                    userEditSaveButton: 'Save Changes',
+                    allUsers: 'Active and inactive users',
+                    noCategory: 'No category available',
+                    noLocation: 'No location available',
+                    noDescription: 'No description available',
+                    alt: 'Icon',
+                },
+            },
+            pl: {
+                translation: {
+                    viewDetails: 'Pokaż szczegóły',
+                    usersTitle: 'Użytkownicy',
+                    usersDescription: 'Zarządzaj użytkownikami w systemie.',
+                    searchPlaceholder:
+                        'Szukaj po nazwie użytkownika lub e-mailu...',
+                    all: 'Wszystkie role',
+                    activeUsers: 'Aktywni użytkownicy',
+                    inactiveUsers: 'Nieaktywni użytkownicy',
+                    userEditTitle: 'Edytuj użytkownika',
+                    userEditNameLabel: 'Imię i nazwisko',
+                    errorDeletingUser: 'Błąd podczas usuwania użytkownika.',
+                    home: 'Strona główna',
+                    about: 'O nas',
+                    contact: 'Kontakt',
+                    footer: {
+                        copyright: 'biuking.com. Wszelkie prawa zastrzeżone.',
+                    },
+                    placeSearchPlaceholder: 'Szukaj miejsca...',
+                    usersManagement: 'Zarządzanie użytkownikami',
+                    username: 'Nazwa użytkownika',
+                    email: 'E-mail',
+                    role: 'Rola',
+                    createdAt: 'Data utworzenia',
+                    actions: 'Akcje',
+                    edit: 'Edytuj',
+                    delete: 'Usuń',
+                    active: 'Aktywny',
+                    inactive: 'Nieaktywny',
+                    confirmDelete: 'Potwierdź usunięcie',
+                    confirmDeleteMessage:
+                        'Czy na pewno chcesz usunąć tego użytkownika?',
+                    userToDelete: 'Użytkownik do usunięcia: {{name}}',
+                    confirm: 'Potwierdź',
+                    cancel: 'Anuluj',
+                    userEditNamePlaceholder: 'Wpisz swoje imię i nazwisko',
+                    userEditEmailLabel: 'E-mail',
+                    userEditEmailPlaceholder: 'Wpisz swój e-mail',
+                    userEditSaveButton: 'Zapisz zmiany',
+                    allUsers: 'Aktywni i nieaktywni użytkownicy',
+                    noCategory: 'Brak dostępnej kategorii',
+                    noLocation: 'Brak dostępnej lokalizacji',
+                    noDescription: 'Brak dostępnego opisu',
+                    alt: 'Ikona',
+                },
+            },
+        },
+    });
 
 export default i18n;
