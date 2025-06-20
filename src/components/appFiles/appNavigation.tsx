@@ -1,6 +1,8 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import SignIn from "../auth/signIn";
+'use client';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import Link from 'next/link';
+import SignIn from '../auth/signIn';
 
 export default function AppNavigation() {
     const { t } = useTranslation();
@@ -10,44 +12,44 @@ export default function AppNavigation() {
             <div className="px-4 sm:px-6 py-4">
                 <ul className="flex flex-row space-x-4">
                     <li>
-                        <a
+                        <Link
                             href="/"
                             className="text-base-content hover:text-primary"
                         >
                             {t('home', {
                                 defaultValue: 'Home',
                             })}
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a
+                        <Link
                             href="/about"
                             className="text-base-content hover:text-primary"
                         >
                             {t('about', {
                                 defaultValue: 'About',
                             })}
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a
+                        <Link
                             href="/contact"
                             className="text-base-content hover:text-primary"
                         >
                             {t('contact', {
                                 defaultValue: 'Contact',
                             })}
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a
+                        <Link
                             href="/privacy"
                             className="text-base-content hover:text-primary"
                         >
                             {t('privacyPolicy', {
                                 defaultValue: 'Privacy Policy',
                             })}
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <label className="toggle text-base-content">
