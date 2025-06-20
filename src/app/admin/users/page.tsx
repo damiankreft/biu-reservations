@@ -3,7 +3,6 @@ import { auth } from '@/auth';
 import UsersList from '@/components/users/usersList';
 import { getUsers } from '@/data/DataSource';
 import UsersProvider from '@/lib/usersContext';
-import { Console } from 'console';
 import { unauthorized } from 'next/navigation';
 import { NextRequest } from 'next/server';
 import React, { Suspense } from 'react';
@@ -44,7 +43,7 @@ export async function DELETE(
 ) {
     const id = (await params).id;
 
-    const response = await fetch(`http://localhost:3001/api/users/${id}`, {
+    const response = await fetch(`http://localhost:3000/api/users/${id}`, {
         method: 'DELETE',
     });
     console.log('Reponse ' + response.text().then((text) => console.log(text)));
@@ -59,7 +58,7 @@ export async function DELETE(
 }
 
 export async function handleUpdateUser(user: any) {
-    const response = await fetch(`/api/users/${user.id}`, {
+    const response = await fetch(`http://localhost:3000/api/users/${user.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

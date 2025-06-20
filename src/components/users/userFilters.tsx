@@ -11,14 +11,14 @@ export default function UserFilters({
         React.SetStateAction<{ search: string; role: string; isActive: string }>
     >;
     allUsers: {
-        username: string;
+        name: string;
         email: string;
         role: string;
         isActive: boolean;
     }[];
 }) {
     const { t } = useTranslation();
-    
+
     return (
         <>
             <h3 className="text-lg font-semibold">

@@ -5,14 +5,16 @@ import { useTranslation } from 'react-i18next';
 import { User, UserActionType, UsersContext } from '@/lib/usersContext';
 import UserFilters from './userFilters';
 import { handleDeleteUser, handleUpdateUser } from '@/app/admin/users/page';
+import UserEdit from './userEdit';
 
 export default function UsersList({ users }: { users: Promise<User[]> }) {
     const { t } = useTranslation();
     const [isPending, startTransition] = useTransition();
     const confirmationModal = React.useRef<HTMLDialogElement>(null);
+    const editUserModal = React.useRef<HTMLDialogElement>(null);
     const { users: cachedUsers, dispatch } = React.useContext(UsersContext);
     const [selectedUser, setSelectedUser] = React.useState<User | null>(null);
-    const allUsers = use(users);
+    // const allUsers = use(users);
 
     const [filters, setFilters] = React.useState<{
         search: string;
@@ -24,17 +26,17 @@ export default function UsersList({ users }: { users: Promise<User[]> }) {
         isActive: '',
     });
 
-    const newUsers: {
-        username: string;
-        email: string;
-        role: string;
-        isActive: boolean;
-    }[] = allUsers.map((user) => ({
-        username: user.name,
-        email: user.email,
-        role: user.role,
-        isActive: user.isActive,
-    }));
+    // const newUsers: {
+    //     name: string;
+    //     email: string;
+    //     role: string;
+    //     isActive: boolean;
+    // }[] = allUsers.map((user) => ({
+    //     name: user.name,
+    //     email: user.email,
+    //     role: user.role,
+    //     isActive: user.isActive,
+    // }));
 
     return (
         <div className="flex w-full">
@@ -43,7 +45,7 @@ export default function UsersList({ users }: { users: Promise<User[]> }) {
                     <UserFilters
                         filters={filters}
                         setFilters={setFilters}
-                        allUsers={newUsers}
+                        allUsers={cachedUsers}
                     />
                 </aside>
             </div>
@@ -115,13 +117,31 @@ export default function UsersList({ users }: { users: Promise<User[]> }) {
                                             ).toLocaleDateString()}
                                         </td>
                                         <td>
-                                            <button className="btn btn-primary btn-sm">
+                                            <button
+                                                onClick={(e) => {
+                                                    setSelectedUser(user);
+                                                    e.preventDefault();
+                                                    if (
+                                                        !editUserModal.current
+                                                    ) {
+                                                        console.error(
+                                                            'Edit user modal is not available',
+                                                        );
+                                                        return;
+                                                    }
+                                                    editUserModal.current?.showModal();
+                                                }}
+                                                className="btn btn-primary btn-sm"
+                                            >
                                                 {t('edit', {
                                                     defaultValue: 'Edit',
                                                 })}
                                             </button>
                                             <button
-                                                onClick={handleDelete(user)}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    handleDelete(user);
+                                                }}
                                                 className="btn btn-secondary btn-sm ml-2"
                                             >
                                                 {t('delete', {
@@ -149,7 +169,6 @@ export default function UsersList({ users }: { users: Promise<User[]> }) {
                     </table>
                 </div>
             </div>
-
             <dialog ref={confirmationModal} className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">
@@ -207,6 +226,37 @@ export default function UsersList({ users }: { users: Promise<User[]> }) {
                     </div>
                 </div>
             </dialog>
+            (
+            <dialog ref={editUserModal} className="modal">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">
+                        {t('confirmDelete', {
+                            defaultValue: 'Confirm Delete',
+                        })}
+                    </h3>
+                    <p className="py-4">
+                        {t('confirmDeleteMessage', {
+                            defaultValue:
+                                'Are you sure you want to delete this user?',
+                        })}
+                    </p>
+                    {selectedUser && (
+                        <p>
+                            {t('userToDelete', {
+                                defaultValue: 'User to delete: {{name}}',
+                                name: selectedUser.name,
+                            })}
+                        </p>
+                    )}
+                    <div className="modal-action">
+                        <UserEdit
+                            user={selectedUser!}
+                            onSubmit={(e) => handleEdit(e)}
+                        />
+                    </div>
+                </div>
+            </dialog>
+            )
         </div>
     );
 
@@ -223,5 +273,19 @@ export default function UsersList({ users }: { users: Promise<User[]> }) {
 
             confirmationModal.current?.showModal();
         };
+    }
+
+    function handleEdit(user: User): Promise<void> {
+        return handleUpdateUser(user)
+            .then(() => {
+                console.log('User updated:', user);
+                dispatch({
+                    type: UserActionType.Change,
+                    user: user,
+                });
+            })
+            .catch((error) => {
+                console.error('Error updating user:', error);
+            });
     }
 }
