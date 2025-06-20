@@ -7,15 +7,15 @@ const bookings: Booking[] = [
     userId: 'user1',
     startDate: new Date('2023-10-01'),
     endDate: new Date('2023-10-05'),
-    guests: 2,
-    statusChanges: [
+    price: 200,
+    status: [
       {
-        name: 'pending',
-        changedAt: new Date('2023-09-30'),
+        status: 'pending',
+        updatedAt: new Date('2023-09-30'),
       },
       {
-        name: 'confirmed',
-        changedAt: new Date('2023-10-01'),
+        status: 'confirmed',
+        updatedAt: new Date('2023-10-01'),
       },
     ],
   },
@@ -25,15 +25,16 @@ const bookings: Booking[] = [
     userId: 'user2',
     startDate: new Date('2023-10-02'),
     endDate: new Date('2023-10-06'),
-    guests: 1,
-    statusChanges: [
+
+    price: 300,
+    status: [
       {
-        name: 'pending',
-        changedAt: new Date('2023-10-01'),
+        status: 'pending',
+        updatedAt: new Date('2023-10-01'),
       },
       {
-        name: 'confirmed',
-        changedAt: new Date('2023-10-02'),
+        status: 'confirmed',
+        updatedAt: new Date('2023-10-02'),
       },
     ],
   },

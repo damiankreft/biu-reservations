@@ -9,13 +9,3 @@ export default function AppTitle() {
     </div>
   );
 }
-
-/* v1
-
-<h1 className="text-xl font-semibold p-2">
-    {t('appTitle', {
-        defaultValue: 'biuking.com',
-    })}
-</h1>
-
-*/

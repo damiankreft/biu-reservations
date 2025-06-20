@@ -7,10 +7,12 @@ export default function UserEdit({
   user,
   onSubmit,
 }: {
-  user: User;
+  user?: User;
   onSubmit: (user: User) => void;
 }) {
   const { t } = useTranslation();
+  const [name, setName] = React.useState(user?.name || '');
+  const [email, setEmail] = React.useState(user?.email || '');
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="text-2xl font-bold mb-4">
@@ -23,9 +25,9 @@ export default function UserEdit({
         onSubmit={(e) => {
           e.preventDefault();
           const editedUser: User = {
-            ...user,
-            name: e.target.elements.name.value,
-            email: e.target.email.value,
+            ...user!,
+            name: name,
+            email: email,
           };
           onSubmit(editedUser);
         }}
@@ -44,6 +46,7 @@ export default function UserEdit({
               defaultValue: 'Enter your name',
             })}
             defaultValue={user?.name || ''}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div className="mb-4">
@@ -60,6 +63,7 @@ export default function UserEdit({
               defaultValue: 'Enter your email',
             })}
             defaultValue={user?.email || ''}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <button
