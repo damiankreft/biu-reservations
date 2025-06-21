@@ -10,6 +10,8 @@
     "test": "jest --watchAll=false --coverage --colors"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.80.10",
+    "formik": "^2.4.6",
     "i18next": "^25.2.1",
     "i18next-browser-languagedetector": "^8.2.0",
     "i18next-http-backend": "^3.0.2",
@@ -19,7 +21,8 @@
     "react-day-picker": "^9.7.0",
     "react-dom": "^19.0.0",
     "react-i18next": "^15.5.3",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

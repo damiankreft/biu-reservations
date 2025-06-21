@@ -28,6 +28,7 @@ export type UsersContextType = {
 };
 
 export type User = {
+  password: unknown;
   id: string;
   name: string;
   email: string;
@@ -62,6 +63,9 @@ export default function UsersProvider({
 
   function usersReducer(state: User[], action: UserAction) {
     switch (action.type) {
+      case UserActionType.SetUsers: {
+        return action.users;
+      }
       case UserActionType.Add: {
         return [...state, action.user];
       }

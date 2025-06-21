@@ -8,7 +8,7 @@ export default function Footer({
 }) {
   const { t } = useTranslation();
   return (
-    <footer className="bg-gray-800 text-white py-4 text-center">
+    <footer className="bottom-0 bg-gray-800 text-white py-4 text-center">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <p className="text-sm">
           &copy; {new Date().getFullYear()}{' '}

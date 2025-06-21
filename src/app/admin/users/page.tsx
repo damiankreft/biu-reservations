@@ -1,26 +1,28 @@
 'use server';
 import { auth } from '@/auth';
-import UsersList from '@/components/users/usersList';
-import { getUsers } from '@/data/DataSource';
-import UsersProvider from '@/lib/usersContext';
+import UsersProvider, { User } from '@/lib/usersContext';
+import dynamic from 'next/dynamic';
 import { unauthorized } from 'next/navigation';
 import { NextRequest } from 'next/server';
 import React, { Suspense } from 'react';
 
 export default async function UsersPage() {
-  const users = getUsers();
   const session = await auth();
   console.log('Session:', session);
   if (!session || session.user.role !== 'admin') {
     unauthorized();
   }
 
+  const LazyUsersList = dynamic(() => import('@/components/users/usersList'), {
+    ssr: true,
+  });
+
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <UsersProvider initialValue={await users}>
-        <UsersList users={users} />
-      </UsersProvider>
-    </Suspense>
+    <UsersProvider initialValue={[]}>
+      <Suspense fallback={<div className="bg-error w-full">Loading...</div>}>
+        <LazyUsersList />
+      </Suspense>
+    </UsersProvider>
   );
 }
 
@@ -57,7 +59,7 @@ export async function DELETE(
   return new Response(null, { status: 204 });
 }
 
-export async function handleUpdateUser(user: any) {
+export async function handleUpdateUser(user: User) {
   const response = await fetch(`http://localhost:3000/api/users/${user.id}`, {
     method: 'PUT',
     headers: {
@@ -68,8 +70,6 @@ export async function handleUpdateUser(user: any) {
   if (!response.ok) {
     throw new Error(`Failed to update user with id ${user.id}`);
   }
-  const updatedUser = await response.json();
-  console.log('User updated:', updatedUser);
 }
 
 export async function handleCreateUser(user: any) {

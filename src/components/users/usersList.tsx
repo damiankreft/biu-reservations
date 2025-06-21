@@ -1,21 +1,35 @@
 'use client';
 
-import React, { use, useTransition } from 'react';
+import React, { useEffect, useTransition } from 'react';
 import { useTranslation } from 'react-i18next';
 import { User, UserActionType, UsersContext } from '@/lib/usersContext';
 import UserFilters from './userFilters';
 import { handleDeleteUser, handleUpdateUser } from '@/app/admin/users/page';
 import UserEdit from './userEdit';
 
-export default function UsersList({ users }: { users: Promise<User[]> }) {
+export default function UsersList() {
   const { t } = useTranslation();
   const [isPending, startTransition] = useTransition();
   const confirmationModal = React.useRef<HTMLDialogElement>(null);
   const editUserModal = React.useRef<HTMLDialogElement>(null);
   const { users: cachedUsers, dispatch } = React.useContext(UsersContext);
   const [selectedUser, setSelectedUser] = React.useState<User | null>(null);
-  // const allUsers = use(users);
 
+  async function fetchUsers() {
+    try {
+      const response = await fetch('/api/users');
+      if (!response.ok) {
+        throw new Error('Failed to fetch users');
+      }
+      const users: User[] = await response.json();
+      dispatch({ type: UserActionType.SetUsers, users });
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  }
+  useEffect(() => {
+    fetchUsers();
+  }, []);
   const [filters, setFilters] = React.useState<{
     search: string;
     role: string;
@@ -25,18 +39,6 @@ export default function UsersList({ users }: { users: Promise<User[]> }) {
     role: '',
     isActive: '',
   });
-
-  // const newUsers: {
-  //     name: string;
-  //     email: string;
-  //     role: string;
-  //     isActive: boolean;
-  // }[] = allUsers.map((user) => ({
-  //     name: user.name,
-  //     email: user.email,
-  //     role: user.role,
-  //     isActive: user.isActive,
-  // }));
 
   return (
     <div className="flex w-full">
@@ -103,12 +105,8 @@ export default function UsersList({ users }: { users: Promise<User[]> }) {
                     <td>
                       <button
                         onClick={(e) => {
-                          setSelectedUser(user);
                           e.preventDefault();
-                          if (!editUserModal.current) {
-                            console.error('Edit user modal is not available');
-                            return;
-                          }
+                          setSelectedUser(user);
                           editUserModal.current?.showModal();
                         }}
                         className="btn btn-primary btn-sm"
@@ -120,7 +118,8 @@ export default function UsersList({ users }: { users: Promise<User[]> }) {
                       <button
                         onClick={(e) => {
                           e.preventDefault();
-                          handleDelete(user);
+                          setSelectedUser(user);
+                          confirmationModal.current?.showModal();
                         }}
                         className="btn btn-secondary btn-sm ml-2"
                       >
@@ -148,106 +147,79 @@ export default function UsersList({ users }: { users: Promise<User[]> }) {
           </table>
         </div>
       </div>
-      <dialog ref={confirmationModal} className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">
-            {t('confirmDelete', {
-              defaultValue: 'Confirm Delete',
-            })}
-          </h3>
-          <p className="py-4">
-            {t('confirmDeleteMessage', {
-              defaultValue: 'Are you sure you want to delete this user?',
-            })}
-          </p>
-          {selectedUser && (
-            <p>
-              {t('userToDelete', {
-                defaultValue: 'User to delete: {{name}}',
-                name: selectedUser.name,
+      {selectedUser && (
+        <dialog ref={confirmationModal} className="modal">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">
+              {t('confirmDelete', {
+                defaultValue: 'Confirm Delete',
+              })}
+            </h3>
+            <p className="py-4">
+              {t('confirmDeleteMessage', {
+                defaultValue: 'Are you sure you want to delete this user?',
               })}
             </p>
-          )}
-          <div className="modal-action">
-            <form
-              method="dialog"
-              onSubmit={async (e) => {
-                e.preventDefault();
-                if (!selectedUser) return;
+            {selectedUser && (
+              <p>
+                {t('userToDelete', {
+                  defaultValue: 'User to delete: {{name}}',
+                  name: selectedUser.name,
+                })}
+              </p>
+            )}
+            <div className="modal-action">
+              <form
+                method="dialog"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  if (!selectedUser) return;
 
-                startTransition(async () => {
-                  await handleDeleteUser(selectedUser.id);
+                  startTransition(async () => {
+                    await handleDeleteUser(selectedUser.id);
 
-                  dispatch({
-                    type: UserActionType.Delete,
-                    id: selectedUser.id,
+                    dispatch({
+                      type: UserActionType.Delete,
+                      id: selectedUser.id,
+                    });
+
+                    confirmationModal.current?.close();
                   });
-
-                  confirmationModal.current?.close();
-                });
-              }}
-            >
-              <button className="btn btn-primary">
-                {t('confirm', { defaultValue: 'Confirm' })}
-              </button>
-              <button
-                type="button"
-                className="btn btn-secondary ml-2"
-                onClick={() => {
-                  confirmationModal.current?.close();
-                  setSelectedUser(null);
                 }}
               >
-                {t('cancel', { defaultValue: 'Cancel' })}
-              </button>
-            </form>
+                <button className="btn btn-primary">
+                  {t('confirm', { defaultValue: 'Confirm' })}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary ml-2"
+                  onClick={() => {
+                    confirmationModal.current?.close();
+                    setSelectedUser(null);
+                  }}
+                >
+                  {t('cancel', { defaultValue: 'Cancel' })}
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
-      </dialog>
-      (
-      <dialog ref={editUserModal} className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">
-            {t('confirmDelete', {
-              defaultValue: 'Confirm Delete',
-            })}
-          </h3>
-          <p className="py-4">
-            {t('confirmDeleteMessage', {
-              defaultValue: 'Are you sure you want to delete this user?',
-            })}
-          </p>
-          {selectedUser && (
-            <p>
-              {t('userToDelete', {
-                defaultValue: 'User to delete: {{name}}',
-                name: selectedUser.name,
-              })}
-            </p>
-          )}
-          <div className="modal-action">
-            <UserEdit user={selectedUser!} onSubmit={(e) => handleEdit(e)} />
+        </dialog>
+      )}
+      {selectedUser && (
+        <dialog
+          ref={editUserModal}
+          className="modal"
+          onClose={() => setSelectedUser(null)}
+        >
+          <div className="modal-box">
+            <div className="modal-action">
+              <UserEdit user={selectedUser!} onSubmit={(e) => handleEdit(e)} />
+            </div>
           </div>
-        </div>
-      </dialog>
-      )
+        </dialog>
+      )}
     </div>
   );
-
-  function handleDelete(
-    user: User,
-  ): React.MouseEventHandler<HTMLButtonElement> | undefined {
-    return async (e) => {
-      e.preventDefault();
-      setSelectedUser(user);
-      if (!confirmationModal.current) {
-        console.error('Confirmation modal is not available');
-        return;
-      }
-
-      confirmationModal.current?.showModal();
-    };
-  }
 
   function handleEdit(user: User): Promise<void> {
     return handleUpdateUser(user)

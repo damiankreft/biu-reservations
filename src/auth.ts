@@ -23,6 +23,7 @@ declare module 'next-auth' {
 
 // The `JWT` interface can be found in the `next-auth/jwt` submodule
 import { JWT } from 'next-auth/jwt';
+import Credentials from 'next-auth/providers/credentials';
 
 declare module 'next-auth/jwt' {
   /** Returned by the `jwt` callback and `auth`, when using JWT sessions */
@@ -44,6 +45,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             DataSourceContext.users.find((u) => u.name === profile.name)
               ?.role || 'user', // Default role for GitHub users
         };
+      },
+    }),
+    Credentials({
+      name: 'Credentials',
+      credentials: {
+        username: { label: 'Username', type: 'text', placeholder: 'jsmith' },
+        password: { label: 'Password', type: 'password' },
+      },
+      async authorize(credentials) {
+        const user = DataSourceContext.users.find(
+          (u) =>
+            u.name === credentials?.username &&
+            u.password === credentials?.password,
+        );
+        if (user) {
+          return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            image: user.profilePicture,
+            role: user.role || 'user',
+          };
+        }
+        // If user not found, return null
+        return null;
       },
     }),
   ],

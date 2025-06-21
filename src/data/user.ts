@@ -12,6 +12,7 @@ const users: User[] = [
     updatedAt: new Date('2023-04-02'),
     isActive: true,
     lastLogin: new Date('2023-10-03'),
+    password: 'pass123',
     preferences: {
       language: 'de',
       currency: 'EUR',
@@ -35,6 +36,7 @@ const users: User[] = [
     updatedAt: new Date('2023-04-02'),
     isActive: true,
     lastLogin: new Date('2023-10-03'),
+    password: 'pass123',
     preferences: {
       language: 'de',
       currency: 'EUR',
@@ -58,6 +60,7 @@ const users: User[] = [
     updatedAt: new Date('2023-04-06'),
     isActive: true,
     lastLogin: new Date('2023-10-04'),
+    password: 'pass123',
     preferences: {
       language: 'it',
       currency: 'EUR',
@@ -81,6 +84,7 @@ const users: User[] = [
     updatedAt: new Date('2023-04-11'),
     isActive: true,
     lastLogin: new Date('2023-10-05'),
+    password: 'pass123',
     preferences: {
       language: 'fr',
       currency: 'EUR',
@@ -104,6 +108,7 @@ const users: User[] = [
     updatedAt: new Date('2023-04-16'),
     isActive: false,
     lastLogin: new Date('2023-09-10'),
+    password: 'pass123',
     preferences: {
       language: 'es',
       currency: 'EUR',
@@ -127,6 +132,7 @@ const users: User[] = [
     updatedAt: new Date('2023-04-21'),
     isActive: true,
     lastLogin: new Date('2023-10-06'),
+    password: 'pass123',
     preferences: {
       language: 'pl',
       currency: 'PLN',
@@ -150,6 +156,7 @@ const users: User[] = [
     updatedAt: new Date('2023-04-26'),
     isActive: true,
     lastLogin: new Date('2023-10-07'),
+    password: 'pass123',
     preferences: {
       language: 'sv',
       currency: 'SEK',
@@ -173,6 +180,7 @@ const users: User[] = [
     updatedAt: new Date('2023-05-02'),
     isActive: false,
     lastLogin: new Date('2023-09-15'),
+    password: 'pass123',
     preferences: {
       language: 'nl',
       currency: 'EUR',
@@ -196,6 +204,7 @@ const users: User[] = [
     updatedAt: new Date('2023-05-06'),
     isActive: true,
     lastLogin: new Date('2023-10-08'),
+    password: 'pass123',
     preferences: {
       language: 'hu',
       currency: 'HUF',
@@ -219,6 +228,7 @@ const users: User[] = [
     updatedAt: new Date('2023-05-11'),
     isActive: true,
     lastLogin: new Date('2023-10-09'),
+    password: 'pass123',
     preferences: {
       language: 'pt',
       currency: 'EUR',
@@ -242,6 +252,7 @@ const users: User[] = [
     updatedAt: new Date('2023-05-16'),
     isActive: true,
     lastLogin: new Date('2023-10-10'),
+    password: 'pass123',
     preferences: {
       language: 'ro',
       currency: 'RON',
@@ -265,6 +276,7 @@ const users: User[] = [
     updatedAt: new Date('2023-05-21'),
     isActive: false,
     lastLogin: new Date('2023-09-20'),
+    password: 'pass123',
     preferences: {
       language: 'fi',
       currency: 'EUR',
@@ -288,6 +300,7 @@ const users: User[] = [
     updatedAt: new Date('2023-05-26'),
     isActive: true,
     lastLogin: new Date('2023-10-11'),
+    password: 'pass123',
     preferences: {
       language: 'cs',
       currency: 'CZK',
@@ -311,6 +324,7 @@ const users: User[] = [
     updatedAt: new Date('2023-06-02'),
     isActive: true,
     lastLogin: new Date('2023-10-12'),
+    password: 'pass123',
     preferences: {
       language: 'el',
       currency: 'EUR',
@@ -334,6 +348,7 @@ const users: User[] = [
     updatedAt: new Date('2023-06-06'),
     isActive: true,
     lastLogin: new Date('2023-10-13'),
+    password: 'pass123',
     preferences: {
       language: 'sk',
       currency: 'EUR',
@@ -357,6 +372,7 @@ const users: User[] = [
     updatedAt: new Date('2023-06-11'),
     isActive: false,
     lastLogin: new Date('2023-09-25'),
+    password: 'pass123',
     preferences: {
       language: 'pl',
       currency: 'PLN',
@@ -380,6 +396,7 @@ const users: User[] = [
     updatedAt: new Date('2023-06-16'),
     isActive: true,
     lastLogin: new Date('2023-10-14'),
+    password: 'pass123',
     preferences: {
       language: 'de',
       currency: 'EUR',
@@ -403,6 +420,7 @@ const users: User[] = [
     updatedAt: new Date('2023-06-21'),
     isActive: true,
     lastLogin: new Date('2023-10-15'),
+    password: 'pass123',
     preferences: {
       language: 'fr',
       currency: 'EUR',
@@ -426,6 +444,7 @@ const users: User[] = [
     updatedAt: new Date('2023-06-26'),
     isActive: true,
     lastLogin: new Date('2023-10-16'),
+    password: 'pass123',
     preferences: {
       language: 'pt',
       currency: 'EUR',
@@ -449,6 +468,7 @@ const users: User[] = [
     updatedAt: new Date('2023-07-02'),
     isActive: false,
     lastLogin: new Date('2023-09-30'),
+    password: 'pass123',
     preferences: {
       language: 'de',
       currency: 'EUR',
@@ -472,6 +492,7 @@ const users: User[] = [
     updatedAt: new Date('2023-07-06'),
     isActive: true,
     lastLogin: new Date('2023-10-17'),
+    password: 'pass123',
     preferences: {
       language: 'cs',
       currency: 'CZK',
@@ -495,6 +516,7 @@ const users: User[] = [
     updatedAt: new Date('2023-07-11'),
     isActive: true,
     lastLogin: new Date('2023-10-18'),
+    password: 'pass123',
     preferences: {
       language: 'da',
       currency: 'DKK',
@@ -518,6 +540,7 @@ const users: User[] = [
     updatedAt: new Date('2023-07-16'),
     isActive: true,
     lastLogin: new Date('2023-10-19'),
+    password: 'pass123',
     preferences: {
       language: 'bg',
       currency: 'BGN',
@@ -541,6 +564,7 @@ const users: User[] = [
     updatedAt: new Date('2023-07-21'),
     isActive: false,
     lastLogin: new Date('2023-09-28'),
+    password: 'pass123',
     preferences: {
       language: 'sk',
       currency: 'EUR',
@@ -564,6 +588,7 @@ const users: User[] = [
     updatedAt: new Date('2023-07-26'),
     isActive: true,
     lastLogin: new Date('2023-10-20'),
+    password: 'pass123',
     preferences: {
       language: 'el',
       currency: 'EUR',
@@ -587,6 +612,7 @@ const users: User[] = [
     updatedAt: new Date('2023-08-02'),
     isActive: true,
     lastLogin: new Date('2023-10-21'),
+    password: 'pass123',
     preferences: {
       language: 'hr',
       currency: 'EUR',
@@ -610,6 +636,7 @@ const users: User[] = [
     updatedAt: new Date('2023-08-06'),
     isActive: true,
     lastLogin: new Date('2023-10-22'),
+    password: 'pass123',
     preferences: {
       language: 'hu',
       currency: 'HUF',
@@ -633,6 +660,7 @@ const users: User[] = [
     updatedAt: new Date('2023-08-11'),
     isActive: false,
     lastLogin: new Date('2023-09-27'),
+    password: 'pass123',
     preferences: {
       language: 'pt',
       currency: 'EUR',
@@ -656,6 +684,7 @@ const users: User[] = [
     updatedAt: new Date('2023-08-16'),
     isActive: true,
     lastLogin: new Date('2023-10-23'),
+    password: 'pass123',
     preferences: {
       language: 'sv',
       currency: 'SEK',
@@ -679,6 +708,7 @@ const users: User[] = [
     updatedAt: new Date('2023-08-21'),
     isActive: true,
     lastLogin: new Date('2023-10-24'),
+    password: 'pass123',
     preferences: {
       language: 'de',
       currency: 'EUR',
@@ -702,6 +732,7 @@ const users: User[] = [
     updatedAt: new Date('2023-08-26'),
     isActive: true,
     lastLogin: new Date('2023-10-25'),
+    password: 'pass123',
     preferences: {
       language: 'nl',
       currency: 'EUR',
@@ -725,6 +756,7 @@ const users: User[] = [
     updatedAt: new Date('2023-09-02'),
     isActive: false,
     lastLogin: new Date('2023-09-26'),
+    password: 'pass123',
     preferences: {
       language: 'it',
       currency: 'EUR',
@@ -748,6 +780,7 @@ const users: User[] = [
     updatedAt: new Date('2023-09-06'),
     isActive: true,
     lastLogin: new Date('2023-10-26'),
+    password: 'pass123',
     preferences: {
       language: 'da',
       currency: 'DKK',
@@ -771,6 +804,7 @@ const users: User[] = [
     updatedAt: new Date('2023-09-11'),
     isActive: true,
     lastLogin: new Date('2023-10-27'),
+    password: 'pass123',
     preferences: {
       language: 'es',
       currency: 'EUR',
@@ -794,6 +828,7 @@ const users: User[] = [
     updatedAt: new Date('2023-09-16'),
     isActive: true,
     lastLogin: new Date('2023-10-28'),
+    password: 'pass123',
     preferences: {
       language: 'cs',
       currency: 'CZK',
@@ -817,6 +852,7 @@ const users: User[] = [
     updatedAt: new Date('2023-09-21'),
     isActive: false,
     lastLogin: new Date('2023-09-25'),
+    password: 'pass123',
     preferences: {
       language: 'bg',
       currency: 'BGN',
@@ -840,6 +876,7 @@ const users: User[] = [
     updatedAt: new Date('2023-09-26'),
     isActive: true,
     lastLogin: new Date('2023-10-29'),
+    password: 'pass123',
     preferences: {
       language: 'sv',
       currency: 'SEK',
@@ -863,6 +900,7 @@ const users: User[] = [
     updatedAt: new Date('2023-10-02'),
     isActive: true,
     lastLogin: new Date('2023-10-30'),
+    password: 'pass123',
     preferences: {
       language: 'el',
       currency: 'EUR',
@@ -886,6 +924,7 @@ const users: User[] = [
     updatedAt: new Date('2023-10-06'),
     isActive: true,
     lastLogin: new Date('2023-10-31'),
+    password: 'pass123',
     preferences: {
       language: 'cs',
       currency: 'CZK',
@@ -909,6 +948,7 @@ const users: User[] = [
     updatedAt: new Date('2023-10-11'),
     isActive: false,
     lastLogin: new Date('2023-09-24'),
+    password: 'pass123',
     preferences: {
       language: 'pt',
       currency: 'EUR',
@@ -932,6 +972,7 @@ const users: User[] = [
     updatedAt: new Date('2023-10-16'),
     isActive: true,
     lastLogin: new Date('2023-11-01'),
+    password: 'pass123',
     preferences: {
       language: 'da',
       currency: 'DKK',
@@ -955,6 +996,7 @@ const users: User[] = [
     updatedAt: new Date('2023-10-21'),
     isActive: true,
     lastLogin: new Date('2023-11-02'),
+    password: 'pass123',
     preferences: {
       language: 'it',
       currency: 'EUR',
@@ -978,6 +1020,7 @@ const users: User[] = [
     updatedAt: new Date('2023-10-26'),
     isActive: true,
     lastLogin: new Date('2023-11-03'),
+    password: 'pass123',
     preferences: {
       language: 'sk',
       currency: 'EUR',
@@ -1001,6 +1044,7 @@ const users: User[] = [
     updatedAt: new Date('2023-11-02'),
     isActive: false,
     lastLogin: new Date('2023-09-23'),
+    password: 'pass123',
     preferences: {
       language: 'de',
       currency: 'EUR',
@@ -1024,6 +1068,7 @@ const users: User[] = [
     updatedAt: new Date('2023-11-06'),
     isActive: true,
     lastLogin: new Date('2023-11-04'),
+    password: 'pass123',
     preferences: {
       language: 'pl',
       currency: 'PLN',
@@ -1047,6 +1092,7 @@ const users: User[] = [
     updatedAt: new Date('2023-11-11'),
     isActive: true,
     lastLogin: new Date('2023-11-05'),
+    password: 'pass123',
     preferences: {
       language: 'sv',
       currency: 'SEK',
@@ -1070,6 +1116,7 @@ const users: User[] = [
     updatedAt: new Date('2023-11-16'),
     isActive: true,
     lastLogin: new Date('2023-11-06'),
+    password: 'pass123',
     preferences: {
       language: 'pt',
       currency: 'EUR',
@@ -1093,6 +1140,7 @@ const users: User[] = [
     updatedAt: new Date('2023-11-21'),
     isActive: false,
     lastLogin: new Date('2023-09-22'),
+    password: 'pass123',
     preferences: {
       language: 'it',
       currency: 'EUR',
@@ -1116,6 +1164,7 @@ const users: User[] = [
     updatedAt: new Date('2023-11-26'),
     isActive: true,
     lastLogin: new Date('2023-11-07'),
+    password: 'pass123',
     preferences: {
       language: 'bg',
       currency: 'BGN',
@@ -1139,6 +1188,7 @@ const users: User[] = [
     updatedAt: new Date('2023-12-02'),
     isActive: true,
     lastLogin: new Date('2023-11-08'),
+    password: 'pass123',
     preferences: {
       language: 'de',
       currency: 'EUR',
@@ -1162,6 +1212,7 @@ const users: User[] = [
     updatedAt: new Date('2023-12-06'),
     isActive: true,
     lastLogin: new Date('2023-11-09'),
+    password: 'pass123',
     preferences: {
       language: 'pl',
       currency: 'PLN',

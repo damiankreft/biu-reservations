@@ -60,3 +60,14 @@ export async function PUT(request: Request) {
     return new Response('User not found', { status: 404 });
   }
 }
+
+export async function GET(request: Request) {
+  console.log('GET request received');
+  const users = await getUsers();
+  console.log('Fetched users:', users);
+
+  return new Response(JSON.stringify(users), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
